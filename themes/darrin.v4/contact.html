@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>Test Layout</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Language" content="English, en_us">
+	<meta name="Author" content="Darrin C. Roenfanz">
+	<meta name="Robots" content="index,follow">
+	<meta name="Description" content="Darrin's Personal Blog">
+	<meta name="Keywords" content="darrin,roenfanz">
+
+  <link rel="stylesheet" href="layout/reset.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="layout/layout.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="layout/contact.css" type="text/css">
+</head>
+
+<body id="contact">
+  <div id="container">
+      <div id="header">             
+        <div class="wrapper">  
+        <h1 id="header"><a href='index.html'>darrin.roenfanz.info</a></h1>
+        
+        <ul id="admin_nav">
+          <li><a href=''>Sitemap</a></li>
+          <li><span>|</span></li>     
+          <li><a href=''>Login</a></li>
+        </ul>           
+      
+        <ul id="site_nav" >
+          <li class='home'><a href='index.html' id='current'>Home</a></li>
+          <li class='about-me'><a href='about-me.html'>About Me</a></li>
+          <li class='blog'><a href='blog.html'>Blog</a></li>
+          <li class='contact'><a href='contact.html'>Contact</a></li>
+        </ul>        
+      </div>        
+    </div>
+    
+  <div id="page-wrapper" class="wrapper">
+    <div id="secondary">
+      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut.</p>
+    </div>
+
+    <div id="primary">
+      <h1>Contact Me</h1>
+        <form id="contact" action="">
+        <fieldset>
+        <legend>Contact Form</legend>
+          <div class='break'>
+            <label for="firstname">First Name<span class='optional'>(Optional)</span></label>
+            <input type="text" name="firstname" id="firstname">  
+          </div>
+           <div class='break'>
+            <label for="lastname">Last Name<span class='optional'>(Optional)</span></label>
+            <input type="text" name="lastname" id="lastname">
+           </div>
+           <div class='break'>
+            <label for="email">E-mail<span class='required'>(Required)</span></label>
+            <input type="text" name="email" id="email">
+           </div>
+           <div class='break'>
+            <label for="subject">Subject<span class='required'>(Required)</span></label>
+            <input type="text" name="subject" id="subject" class='required'>
+           </div>
+           <div class='break'>
+            <label for="contents" >Content<span class='required'>(Required)</span></label>
+            <textarea rows="5" cols="20" name="contents" id="contents"></textarea>
+           </div>
+           <button type='submit'>Submit</button>
+        </fieldset>
+        </form>
+    </div><!--end content -->
+  </div>
+    <div id="footer">
+      <div class="wrapper">
+        Design by <a href='http://darrin.roenfanz.info' title="Darrin C. Roenfanz">Darrin C. Roenfanz</a> &copy; 2008
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
