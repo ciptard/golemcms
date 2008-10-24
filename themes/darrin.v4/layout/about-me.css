@@ -1,0 +1,15 @@
+/**************************************
+  @author Darrin C. Roenfanz          *
+  @version 0.3                        *
+  @link http://darrin.roenfanz.info   *
+**************************************/
+
+/* -----------------------------------*/
+/* -------->>> ABOUT-ME.CSS <<<-------*/
+/* -----------------------------------*/
+img {
+  border: 1px solid #888;
+  float: right;
+  margin: 0 1em 0 0;
+  padding: .25em;
+  }

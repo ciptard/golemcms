@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+    <title><?= $site_title ?></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta name="Language" content="English, en-us">
+	<meta name="Author" content="Darrin C. Roenfanz">
+	<meta name="Robots" content="index,follow">
+	<meta name="Description" content="Darrin's Personal Blog">
+	<meta name="Keywords" content="darrin,roenfanz">
+    
+    <link rel="stylesheet" href="themes/darrin.v3/css/layout.css" type="text/css">
+    <link rel="stylesheet" href=<?=$css?> type="text/css">
+</head>
+
+<body>
+
+<div id="container">
+    <div id="top">  
+        <ul id="site_nav">
+            <li id='active'><a href='index.php' id='current'>Home</a></li>
+            <li><a href='index.php?page=about'>About Me</a></li>
+            <li><a href='index.php?page=blog'>Blog</a></li>
+            <li><a href='index.php?page=contact'>Contact</a></li>
+        </ul>
+        
+        <div id="header">
+            <div id='admin_nav'>
+            <? if ($_SESSION['logged_in'] === true):?>
+                <a href='admin/index.php'>Admin</a>
+                <span>|</span>
+                <a href='admin/index.php?page=logout'>Logout</a>
+            <? else: ?>
+                <a href='admin/index.php?page=login'>Login</a>
+            <? endif; ?>
+                <span>|</span>            
+                <a href=''>Sitemap</a>
+            </div>
+        <h1><a href='index.php'>darrin.roenfanz.info</a></h1>
+        </div>
+    </div>
+
+    <div id="page">    
+        <?=$content; ?>
+    </div>
+    
+    <div id="footer">
+        &copy; <a href='http://darrin.roenfanz.info' title="Darrin C. Roenfanz">Darrin C. Roenfanz</a>
+    </div>
+</div>  
+
+</body>
+</html>  

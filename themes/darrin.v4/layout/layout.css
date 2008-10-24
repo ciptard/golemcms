@@ -1,0 +1,145 @@
+/**************************************
+  @name: LAYOUT.CSS                   *
+  @author Darrin C. Roenfanz          *
+  @version 0.3                        *
+  @link http://darrin.roenfanz.info   *
+**************************************/
+body { 
+  font: 14px Arial, sans-serif; 
+  background-color: #369; 
+  }
+H1              { font-size: 2em; margin: 1.5em 0; color: #123; }
+H2              { font-size: 1.5em; margin: .83em 0 }
+H3              { font-size: 1.17em; margin: 1em 0 }
+  
+h1, h2, h3, 
+h4, h5, h6 { 
+  font-family: Georgia, "Times New Roman", serif; 
+  }  
+div#container { background-color: #FFF; }
+/* =TOP
+--------------------------------------
+*/
+div#header {
+ height: 80px;
+  background-color: #369;
+  border-bottom: 10px solid #246;
+  }
+
+div#header a,
+div#header span { 
+  color: #FFF; 
+  text-decoration: none;
+  }
+  
+div#header ul,
+div#header ul li { 
+  display: inline; 
+  list-style: none;
+  margin: 0; padding: 0;
+  }
+  
+  
+/* TOP: =HEADER
+--------------------------------------
+*/
+div.wrapper{
+  width: 790px;
+  margin: 0 auto;
+  position: relative;
+}
+#header { }
+#header h1{
+  margin: 0;
+  font-size: 3em;
+  padding-top: 30px;
+  padding-left: 0em;
+  width: 60%;
+  position: relative;
+  z-index: 2;
+  }
+  
+#header a {
+  margin: 0; padding: 0;
+  text-decoration: none;
+  }
+  
+/* TOP: =ADMIN_NAV
+--------------------------------------
+*/
+
+ul#admin_nav { display: none; visibility: hidden;
+float: right;
+}
+ul#admin_nav li {
+  float: left;
+  display: inline;
+  margin-left: 3px;
+  border: 1px solid #48596c;
+  background-color: #788695;
+}
+ul#admin_nav li a {
+  display: block;
+  padding: 4px 10px;
+  font-weight: bold;
+  color: #FFF;
+  }
+ul#admin_nav li a:hover {
+  text-decoration: underline;
+  }
+
+/* TOP: =SITE_NAV
+--------------------------------------
+*/
+#home ul#site_nav .home a,
+#about-me ul#site_nav .about-me a,
+#blog ul#site_nav .blog a,
+#contact ul#site_nav .contact a { 
+  background-color: #246; /*Brown color theme*/ 
+  border-color: #246;
+  }
+ul#site_nav {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  height: 80px;  
+  }
+ul#site_nav li {
+  float: left;
+  margin: 0 2px 0px 0;
+  }
+ul#site_nav a {
+  background-color: #123;
+  padding: 10px 1em 56px 1em;
+  display: block;
+  height: 100%;    
+  font-weight: bold;
+  vertical-align: bottom;
+  color: #FFF;
+  margin: 0px 1px 0 0; /*Margin between each menu item*/
+}
+ul#site_nav a:hover { text-decoration: underline; }
+
+/* PAGE: =CONTENT
+--------------------------------------
+*/
+div#page-wrapper {
+  padding-top: 2em;
+}  
+div#primary {
+  width: 33em;
+  display: block;
+  }
+div#primary h1 {  margin: 0; }
+p { line-height: 1.33em; margin: 1em; }
+
+div#secondary { float: right; width: 22em; margin: 0; padding: 0;}
+div#secondary p {text-align: right; }
+
+/* PAGE: =FOOTER
+--------------------------------------
+*/
+
+#footer { background-color: #369; padding: 1em 0; border-top: 10px solid #246; }
+#footer, #footer a { color: #FFF; }
