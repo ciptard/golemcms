@@ -13,13 +13,13 @@ if (isset($_GET['page'])) {
 
 switch ($PAGE) {
     case 'about':
-        $ThemeContent =& new Template('themes/darrin.v3/about.html');
+        $ThemeContent = new Template('themes/darrin.v3/about.html');
         $ThemeBase->set('css', "themes/darrin.v3/css/about-me.css" );        
         $ThemeBase->set('content', $ThemeContent );
     break;
     
     case 'blog':
-        $ThemeContent =& new Template('themes/darrin.v3/blog.html');
+        $ThemeContent = new Template('themes/darrin.v3/blog.html');
         $ThemeBase->set('css', "themes/darrin.v3/css/blog.css" );
         $ThemeBase->set('content', $ThemeContent );
     break;
@@ -35,8 +35,7 @@ switch ($PAGE) {
         $ThemeBase->set('content', $ThemeContent );
     break;
     
-    default:
-    
+    default:  
         $ThemeBase->set('content', 'Error 404: Page Not Found' );
     break;
 }

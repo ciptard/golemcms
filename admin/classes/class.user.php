@@ -19,7 +19,8 @@ class User {
         }
         */
     }
-
+    
+   
   // Add User to the SQL
     public function add($username, $password, $real_name, $email, $activated=0) {
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -54,7 +55,7 @@ class User {
 
     //attempt to login false if invalid true if correct
     public function login($username, $password) {
-        $query = 'SELECT username, realname, email, activated, permission_level FROM users WHERE username = ? AND password = ? LIMIT 1';
+        $query = 'SELECT username, realname, email, activated, permission_level FROM users WHERE username = ? AND password = ?';
 
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('ss', $username, md5($password));
@@ -78,9 +79,10 @@ class User {
   // This function isn't finished
     public function logout() {
 
-        if(isLoggedIn()) {
+        if($this->isLoggedIn()) {
             $this->logged_in = false;
-            setSession();
+            $this->username = '';
+            $this->setSession();
         }
     }
 
@@ -142,7 +144,7 @@ class User {
   // Fetch User's Real/Displayed Name
     public function getRealName()
     {
-        return $this->user_real_name;
+        return $this->real_name;
     }
 
   // Fetch User's Admin Level

@@ -25,33 +25,37 @@
 </head>
 
 <body>
-  <form id='login' action='<?= $action; ?>' method='post'>
-    <div class='break'>
-      <label for='username' class='txt'>Username:</label>
-      <input id='username'
-             name='username' 
-             type='text' 
-             class='text'>
+    <div id="container">
+        <form id='login' action='<?= $action; ?>' method='post'>
+            <div class='break'>
+                <label for='username' class='txt'>Username:</label>
+                <input id='username'
+                     name='username' 
+                     type='text' 
+                     class='text'>
+            </div>
+            
+            <div class='break'>
+                <label for='password' class='txt'>Password:</label>
+                <input id='password' 
+                     name='password'
+                     type='password' 
+                     class='text'>
+            </div>
+        
+            <div class='break'>
+                <input id='remember' 
+                     name='remember'
+                     type='checkbox' 
+                     class='chkbox'>
+                <label for='remember'>Remember you?</label>                 
+            </div>
+            
+            <input name='submit_login'
+                 type='submit' 
+                 value='Login' 
+                 class='submit'>
+        </form>
     </div>
-    <div class='break'>
-      <label for='password' class='txt'>Password:</label>
-      <input id='password' 
-             name='password'
-             type='password' 
-             class='text'>
-    </div>
-    <div class='break'>
-      <input id='remember' 
-             name='remember'
-             type='checkbox' 
-             class='chkbox'>
-      <label for='remember'>Remember you?</label>
-             
-    </div>
-      <input name='submit_login'
-             type='submit' 
-             value='Login' 
-             class='submit'>
-  </form>
 </body>
 </html>
