@@ -55,6 +55,8 @@ class User {
 
     //attempt to login false if invalid true if correct
     public function login($username, $password) {
+    $this->logged_in = true;
+
         $query = 'SELECT username, realname, email, activated, permission_level FROM users WHERE username = ? AND password = ?';
 
         if ($stmt = $this->db->prepare($query)) {
@@ -74,6 +76,7 @@ class User {
             }
             $stmt->close();
         }
+    return $this->logged_in;
     }
 
   // This function isn't finished
@@ -143,8 +146,9 @@ class User {
 
   // Fetch User's Real/Displayed Name
     public function getRealName()
-    {
-        return $this->real_name;
+    {   
+        $realname = $this->real_name;
+        return $realname;
     }
 
   // Fetch User's Admin Level
