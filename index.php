@@ -2,41 +2,42 @@
 session_start();
 require_once('admin/classes/class.template.php');
 
-$ThemeBase =& new Template('themes/darrin.v3/index.html');
-$ThemeBase->set('site_title', "darrin.roenfanz.info");
+$themeBase = new Template('themes/darrin.v3/index.html');
+$themeBase->set('site_title', "darrin.roenfanz.info");
 
-if (isset($_GET['page'])) {
-    $PAGE = $_GET['page'];
+if (!empty($_GET['page'])) {
+	$page = $_GET['page'];
 } else {
-    $PAGE = 'home';
+	$page = 'home';
 }
 
-switch ($PAGE) {
-    case 'about':
-        $ThemeContent = new Template('themes/darrin.v3/about.html');
-        $ThemeBase->set('css', "themes/darrin.v3/css/about-me.css" );        
-        $ThemeBase->set('content', $ThemeContent );
-    break;
-    
-    case 'blog':
-        $ThemeContent = new Template('themes/darrin.v3/blog.html');
-        $ThemeBase->set('css', "themes/darrin.v3/css/blog.css" );
-        $ThemeBase->set('content', $ThemeContent );
-    break;
-    
-    case 'contact':
-        $ThemeContent = new Template('themes/darrin.v3/contact.html');
-        $ThemeBase->set('css', "themes/darrin.v3/css/contact.css" );
-        $ThemeBase->set('content', $ThemeContent );
-    break;
-    
-    case 'home':
-        $ThemeContent = new Template('themes/darrin.v3/home.html');
-        $ThemeBase->set('content', $ThemeContent );
-    break;
-    
-    default:  
-        $ThemeBase->set('content', 'Error 404: Page Not Found' );
-    break;
+switch ($page) {
+	case 'about':
+		$themeContent = new Template('themes/darrin.v3/about.html');
+		$themeBase->set('css', 'themes/darrin.v3/css/about-me.css');
+		$themeBase->set('content', $themeContent);
+		break;
+
+	case 'blog':
+		$themeContent = new Template('themes/darrin.v3/blog.html');
+		$themeBase->set('css', 'themes/darrin.v3/css/blog.css');
+		$themeBase->set('content', $themeContent);
+		break;
+
+	case 'contact':
+		$themeContent = new Template('themes/darrin.v3/contact.html');
+		$themeBase->set('css', 'themes/darrin.v3/css/contact.css');
+		$themeBase->set('content', $themeContent);
+		break;
+
+	case 'home':
+		$themeContent = new Template('themes/darrin.v3/home.html');
+		$themeBase->set('content', $themeContent);
+		break;
+
+	default:
+		header('HTTP/1.0 404 Not Found');
 }
-echo $ThemeBase->fetch('themes/darrin.v3/index.html');
+
+echo $themeBase->fetch('themes/darrin.v3/index.html');
+?>
