@@ -4,7 +4,7 @@ class User {
     private $username = '' ;
     private $real_name = '' ;
     private $email = '';
-    private $level = 0 ;
+    private $permission_level = 0 ;
     private $activated = 0;
     private $logged_in = false;
 
@@ -24,17 +24,17 @@ class User {
   // Add User to the SQL
     public function add($username, $password, $real_name, $email, $activated=0) {
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $query = 'INSERT INTO users (username, password, realname, email, activated) VALUES (?,?,?,?,?)';
+        $query = 'INSERT INTO users (username, password, realname, email, activated) VALUES (?,?,?,?,0)';
 
         if ($stmt = $this->db->prepare($query)) {
-            $stmt->bind_param('ssssi', $username, md5($password), $real_name, $email, $activated);
+            $stmt->bind_param('ssss', $username, md5($password), $real_name, $email );
             $stmt->execute();
             $stmt->close();
         }
     }
   // setActivation() ?
     public function activate($username) {
-        $query = 'UPDATE users SET activated = ? WHERE username = ? AND activated = ? LIMIT 1';
+        $query = 'UPDATE users SET activated = ? WHERE username = ? AND activated = ?';
 
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('isi', 1, $username, 0);
@@ -62,7 +62,7 @@ class User {
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('ss', $username, md5($password));
             $stmt->execute();               /* execute statement */
-            $stmt->bind_result( $user, $real_name, $email, $activated, $level );
+            $stmt->bind_result( $user, $real_name, $email, $activated, $permission_level );
 
             if($stmt->fetch())
             {
@@ -71,7 +71,7 @@ class User {
                 $this->real_name = $real_name;
                 $this->email = $email;
                 $this->activated = $activated;
-                $this->level = $level;
+                $this->permission_level = $permission_level;
                 $this->setSession();
             }
             $stmt->close();
@@ -85,8 +85,9 @@ class User {
         if($this->isLoggedIn()) {
             $this->logged_in = false;
             $this->username = '';
-            $this->setSession();
         }
+        $this->setSession();
+
     }
 
 
@@ -139,22 +140,19 @@ class User {
     }
 
   // Fetch User's Email
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
   // Fetch User's Real/Displayed Name
-    public function getRealName()
-    {   
-        $realname = $this->real_name;
-        return $realname;
+    public function getRealName() {   
+        $_SESSION['real_name'] = $this->real_name;
+        return $_SESSION['real_name'];
     }
 
   // Fetch User's Admin Level
-    public function getUserLevel()
-    {
-        return $this->level;
+    public function getUserLevel() {
+        return $this->permission_level;
     }
 
   // Generate a new password
