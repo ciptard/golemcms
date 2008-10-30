@@ -32,7 +32,7 @@ if (!file_exists($config_file)) {
     include $config_file;
 }
 
-if (!is_writeable('../public/')) {
+if (!is_writeable('../themes/')) {
     $error[2] = "public/ must be writable.";
 }
 
@@ -86,18 +86,10 @@ switch ($page) {
                     $error[0] = "Username field empty";
                 if (empty($_POST['password']))
                     $error[1] = "Password field empty";
-            } else {
-            
-                    $usr->login($_POST['username'],$_POST['password']);
-                    if ($_POST['username'] != $_SESSION['username'])
-                        $error[2] = "Username and/or password is incorrect";
-                    else
-                        exit(header("Location: index.php?page=home"));
+            } else {                
+                $realname = $_POST['realname'];
+                $username = $_POST['username'];
             }
-                
-            $realname = $_POST['realname'];
-            $username = $_POST['username'];
-            
             if ($_POST['email2'] != $_POST['email']) {
                 $error[0] = 'Email fields do not match. Try again.';                
             } elseif ($_POST['password2'] != $_POST['password']) {
