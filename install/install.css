@@ -1,0 +1,157 @@
+/* =GENERIC */
+
+html, body { padding: 0; margin: 0; }
+body {
+    background-color: #123;
+    font-size: 14px;
+    font-style: normal;
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.2;
+    margin: .5em 0 .3em 0;
+}
+
+h1 { font-size: 2.0em; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1.0em; }
+form label {
+    cursor: pointer;
+    margin: 0;
+    padding: .3em;
+}
+
+/* =MAIN */
+
+div#container {
+    color: #123;
+    background-color: #F5F5F5;
+    border: 1px solid #123;
+    outline: 10px solid #246;
+    margin: 5em auto;
+    width: 700px;
+    }
+div#header h1 {
+    background-color: #262626;
+    border: 1px solid #9cf;
+    border-width: 1px 1px 0 1px;
+    color: #FFF;
+    margin: 0;
+    padding: 0.25em;
+    text-align: center;
+    }
+#main div {
+    padding: 0.5em 1em;
+    margin: 0 1em;
+    }
+
+#main div p{
+    margin: 0 2em;
+    }
+#main form div {
+    padding: 0.5em 1em;
+    margin: 0;
+    }    
+#main form div p{
+    margin: 0;
+    }    
+
+div.error {
+    background-color: #FDD;
+    border: 1px solid #F00;
+    color: #FD0000;
+    }
+div.info {
+    background-color: #9cf;
+    border: 1px solid #00D;
+    color: #00D;
+    }
+div.continue p{ text-align: right; }
+div.continue p a {
+    background-color: #BBB;
+    border: 1px solid #DDD;
+    border-right-color: #888;
+    border-bottom-color: #888;
+    outline: 1px solid #666;
+    padding: 0.25em 1em;
+    text-decoration: none;
+    color: #123;
+    }
+div.continue p a:active {
+    border: 1px solid #888;
+    border-right-color: #DDD;
+    border-bottom-color: #DDD;
+    }
+/* =FORM */
+form {
+    padding: 1em;
+    padding-bottom: 0;
+    }
+fieldset {
+    border-width: 1px 0 0 0;
+    }
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0 1em ;
+    padding: 0 5px;
+    }
+div.formbox {
+    border-bottom: 1px dashed #BBB;
+    clear: both;
+    overflow: hidden;
+    padding: 1px 1em;
+    margin: 0;
+    }
+div.formbox h3 { margin: 0 0 0.5em 0; padding: 0; }
+div.formbox label {
+    clear: left;
+    float: left;
+    margin-right: 0.5em;
+    text-align: right;
+    width: 10em;
+    line-height: 1;
+    }
+input.textbox {
+    float: left;
+    margin-right: 0.5em;
+    width: 15em;
+    }
+
+span.hintbox {
+    display: block;
+    margin-left: 26.5em;
+    border-left: 1px solid #CCC;
+    padding-left: 1em;
+    }
+input.button {
+    background-color: #BBB;
+    border: 1px solid #DDD;
+    border-right-color: #888;
+    border-bottom-color: #888;
+    outline: 1px solid #666;
+    padding: 0.25em 1em;
+    }
+input.button:active {
+    border: 1px solid #888;
+    border-right-color: #DDD;
+    border-bottom-color: #DDD;
+    }
+/* =FORM */
+div#footer {
+    background-color: #262626;
+    border: 1px solid #9cf;
+    border-width: 0 1px 1px 1px;
+    color: #FFF;
+    clear: both;
+    padding: 0.5em 1em;
+    margin-top: 1em;
+    }
+div#footer a { color: #FFF; }
+#footer p { padding: 0; margin: 0; text-align: center;}

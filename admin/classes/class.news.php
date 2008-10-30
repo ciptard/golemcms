@@ -30,7 +30,6 @@ class News {
         }
         $stmt->close();                 /* close statement */
     }
-    $mysqli->close();
     return $news;
     } /* END OF News::Display  */
 
@@ -45,23 +44,20 @@ class News {
       $stmt->execute();
       $stmt->close();
       }
-    $mysqli->close();
   } /* END OF News::Create  */
 
-  function delete($id) {
+    function delete($id) {
 		// Only allow numbers for ID
 		if(is_numeric($id))	{
-			$query = 'DELETE FROM news WHERE id=? LIMIT 1';
-      $stmt->bind_param('i', $id);
-      $mysqli = mysqlConnect();
-
-      if ($stmt = $mysqli->prepare($query)) {
-        $stmt->execute();
-        $stmt->close();
-      }
+        $query = 'DELETE FROM news WHERE id=? LIMIT 1';
+        $mysqli = mysqlConnect();
+            if ($stmt = $mysqli->prepare($query)) {
+                $stmt->bind_param('i', $id);
+                $stmt->execute();
+                $stmt->close();
+            }
+        }   
     }
-    $mysqli->close();
-  }
 
   function edit() {
     } /* END OF News::Edit  */

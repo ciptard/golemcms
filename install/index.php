@@ -36,38 +36,101 @@ if (!is_writeable('../public/')) {
     $error[2] = "public/ must be writable.";
 }
 
-
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+} else {
+    $page = '1';
+}
+$mysqli;
 $msg = array();
-if ( ! defined('DEBUG') && isset($_POST['commit']) && (file_exists($config_file) && is_writable($config_file)))
-{
-    $config_tmpl = new Template('config.tpl.php');
-    
-    $config_tmpl->assign($_POST['config']);
-    $config_content = $config_tmpl->fetch();
+switch ($page) {
+    case '1':
+        if ( ! defined('DEBUG') && isset($_POST['commit']) && (file_exists($config_file) && is_writable($config_file)))
+        {
+            $config_tmpl = new Template('config.tpl.php');
+            
+            $config_tmpl->assign($_POST['config']);
+            $config_content = $config_tmpl->fetch();
 
-    file_put_contents($config_file, $config_content);
-    $msg[0] = "Config file successfully written!";
+            file_put_contents($config_file, $config_content);
+            $msg[0] = "Config file successfully written!";
 
-    include $config_file;
+            include $config_file;
 
-    $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
-    if ($mysqli->connect_error) {
-        printf("GolemCMS had a connection issue: %s\n", mysqli_connect_error());
-        file_put_contents($config_file, '');
-    exit();
-    }
-    if ($mysqli) {
-        $sql_file = file_get_contents('install.sql');
-        $sql_array = explode(';',$sql_file);
-        foreach ($sql_array as $query) {
-            if ($stmt = $mysqli->prepare($query)) {
-                $stmt->execute();
-                $stmt->close();
+            if ($mysqli->connect_error) {
+                printf("Unable to connect to the database! Tables are not loaded!\n GolemCMS had a connection issue: %s\n", mysqli_connect_error());
+                file_put_contents($config_file, '');
+            exit();
+            }
+            if ($mysqli) {
+                $sql_file = file_get_contents('install.sql');
+                $sql_array = explode(';',$sql_file);
+                foreach ($sql_array as $query) {
+                    if ($stmt = $mysqli->prepare($query)) {
+                        $stmt->execute();
+                        $stmt->close();
+                    }
+                }
+                $msg[1] = "Tables loaded (and written too) successfully!";
             }
         }
-        $msg[1] = "Tables loaded (and written too) successfully!";
-    } else $error[3] = 'Unable to connect to the database! Tables are not loaded!';
-}
-include 'install.tpl.php';
+        include 'page1.tpl.php';
+    break;
+    
+    case '2':
+        if (! defined('DEBUG')  && isset($_POST['register']) ) {
+            if (empty($_POST['username']) || empty($_POST['password'])) {
+                if (empty($_POST['username']))
+                    $error[0] = "Username field empty";
+                if (empty($_POST['password']))
+                    $error[1] = "Password field empty";
+            } else {
+            
+                    $usr->login($_POST['username'],$_POST['password']);
+                    if ($_POST['username'] != $_SESSION['username'])
+                        $error[2] = "Username and/or password is incorrect";
+                    else
+                        exit(header("Location: index.php?page=home"));
+            }
+                
+            $realname = $_POST['realname'];
+            $username = $_POST['username'];
+            
+            if ($_POST['email2'] != $_POST['email']) {
+                $error[0] = 'Email fields do not match. Try again.';                
+            } elseif ($_POST['password2'] != $_POST['password']) {
+                $error[1] = 'Password fields do not match. Try again.';
+            } else {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+            }
+            
+            include $config_file;
+
+            $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+            if ($mysqli->connect_error) {
+                printf("GolemCMS was unable to connect to the database:\n%s\n", mysqli_connect_error());
+                exit();
+            }
+           
+           if ($mysqli) {
+                $query = 'UPDATE users SET realname = ?, username = ?, password = ?, email = ?,  activated = 1, permission_level = 1 WHERE username = admin AND password = md5("pass1234");';
+                if ($stmt = $mysqli->prepare($query)) {
+                    $stmt->bind_param('ssss', $realname, $username, md5($password), $email);
+                    $stmt->execute();
+                    printf("Error: %s.\n", $stmt->error);
+                    $stmt->close(); 
+                }
+            }
+        }
+        include 'page2.tpl.php';
+    break;
+    
+    default:
+        // do something
+    break;
+    }
 ?>

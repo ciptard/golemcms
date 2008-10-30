@@ -2,9 +2,17 @@ drop table if exists `categories`, `news`, `page`, `users`, `user_groups`;
 
 CREATE TABLE `categories` (
     `id` int not null AUTO_INCREMENT PRIMARY KEY ,
+    `title` varchar(65) NOT NULL,
+    `left_node` INT NULL default null,
+    `left_node` INT not null default,
+) DEFAULT CHARSET=utf8 COMMENT='Categories Table';
+
+CREATE TABLE `navigation` (
+    `id` int not null AUTO_INCREMENT PRIMARY KEY ,
     `name` varchar(65) NOT NULL,
     `parent_id` INT NULL default null
-) DEFAULT CHARSET=utf8 COMMENT='Categories Table';
+) DEFAULT CHARSET=utf8 COMMENT='Navigation Table';
+
 
 CREATE TABLE `news` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
