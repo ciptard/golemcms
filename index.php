@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 /**
    Golem CMS - The Rock Solid CMS. <http://darrin.roenfanz.info/golemcms>
@@ -21,7 +22,7 @@
 //  Constants  ---------------------------------------------------------------
 
 define('GOLEM_ROOT', dirname(__FILE__));
-define('CORE_ROOT', GOLEM_ROOT.'/core');
+define('GOLEM_CORE', GOLEM_ROOT.'/core');
 
 #define('APP_PATH', CORE_ROOT.'/app');
 
@@ -34,8 +35,45 @@ define('BASE_URL', URL_PUBLIC . (USE_MOD_REWRITE ? '': '?'));
 // if you have installed frog and see this line, you can comment it or delete it :)
 if ( ! defined('DEBUG')) { header('Location: install/'); exit(); }
 
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS , DB_NAME);
-
-
 // run everything!
 #require APP_PATH.'/admin/main.php';
+require_once(GOLEM_CORE.'/classes/GC_Template.php');
+$WebsiteBase = new Template('themes/darrin.v3/index.html');
+$WebsiteBase->set('site_title', "darrin.roenfanz.info");
+
+if (!empty($_GET['page'])) {
+	$page = $_GET['page'];
+} else {
+	$page = 'home';
+}
+
+switch ($page) {
+	case 'about':
+		$WebsiteContent = new Template('themes/darrin.v3/about.html');
+		$WebsiteBase->set('css', 'themes/darrin.v3/css/about-me.css');
+		$WebsiteBase->set('content', $WebsiteContent);
+		break;
+
+	case 'blog':
+		$WebsiteContent = new Template('themes/darrin.v3/blog.html');
+		$WebsiteBase->set('css', 'themes/darrin.v3/css/blog.css');
+		$WebsiteBase->set('content', $WebsiteContent);
+		break;
+
+	case 'contact':
+		$WebsiteContent = new Template('themes/darrin.v3/contact.html');
+		$WebsiteBase->set('css', 'themes/darrin.v3/css/contact.css');
+		$WebsiteBase->set('content', $WebsiteContent);
+		break;
+
+	case 'home':
+		$WebsiteContent = new Template('themes/darrin.v3/home.html');
+		$WebsiteBase->set('content', $WebsiteContent);
+		break;
+
+	default:
+		header('HTTP/1.0 404 Not Found');
+}
+
+echo $WebsiteBase->fetch('themes/darrin.v3/index.html');
+?>
