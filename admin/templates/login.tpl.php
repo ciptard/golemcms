@@ -50,12 +50,31 @@
             padding: 0.25em;
             text-align: center;
             }
-        p.error {
+        #main div {
+            padding: 0.5em 1em;
+            margin: 1em;
+            }
+
+        #main div p{
+            margin: 0 2em;
+            }
+        #main form div {
+            padding: 1px 1px 1em 1px;
+            margin: 0;
+            }    
+        #main form div p{
+            margin: 0;
+            }    
+
+        div.error {
             background-color: #FDD;
             border: 1px solid #F00;
             color: #FD0000;
-            padding: 0.5em 1em;
-            margin: 1em;
+            }
+        div.info {
+            background-color: #9cf;
+            border: 1px solid #00D;
+            color: #00D;
             }
         div#main {
             border: 1px solid #FFF;
@@ -85,12 +104,13 @@
             clear: left;
             float: left;
             margin-right: 0.5em; 
-            width: 15em;
+            width: 16.25em;
             font-size: 1.2em;
             border: 2px solid #999;
             }
         input.textbox:focus { border-color: #246; }
         input.button {
+            font-size: 1.1em;        
             background-color: #BBB;
             border: 1px solid #DDD;
             border-right-color: #888;
@@ -113,7 +133,8 @@
             padding: 0.5em 1em;
             }
         div#footer a { color: #FFF; }
-        #footer p { padding: 0; margin: 0; text-align: center;}</style>    
+        #footer p { padding: 0; margin: 0; text-align: center;}
+</style>    
 </head>
 
 <body id="installation">
@@ -130,6 +151,8 @@
         <?php endforeach; ?>  
     </p>
     <?php endif;?>
+    
+    
     <form action="index.php?page=login" method="post">
         <div class="formbox">
             <label for="username">Username</label>
@@ -147,9 +170,16 @@
             <label for="config_remember">Remember me</label></span>
         </p>
         <p class="links">
-            <a href=''>Request password</a> | <a href=''>Create an account</a>
+            <a href=''>Request password</a> | <a href='index.php?page=register'>Create an account</a>
         </p>      
     </form>
+    <?php if (!empty($msg)):?>
+        <div class="info"<p>
+            <?php foreach($msg as $message):?>
+              <strong>Attn</strong>: <?php echo $message ;?><br>
+            <?php endforeach; ?>  
+        </p></div>
+        <?php endif;?>
 </div>
 
     <div id="footer">

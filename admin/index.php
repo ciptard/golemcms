@@ -1,12 +1,10 @@
 <?php
 session_start();
-session_regenerate_id(true);
-require_once('config/mysql.connect.php');
+require_once('../index.php');
 require_once('classes/class.template.php');
 require_once('classes/class.user.php');
 
-$db = mysqlConnect();
-$usr = new User($db);
+$usr = new User($conn);
 
 
 if (isset($_GET['page'])) {
@@ -17,12 +15,12 @@ if (isset($_GET['page'])) {
 $error = array();
 switch ($page) {
     case 'home':
-        if($usr->isLoggedIn()) {
+        if(!$usr->isLoggedIn()) {
+            exit(header("Location: index.php?page=login"));
+        } else {
             $BaseCMS = new Template();
             $BaseCMS->set('LoginName', $usr->getRealName() );
             echo $BaseCMS->fetch('templates/index.tpl.php');
-        } else {
-          header("Location: index.php?page=login");
         }
     break;
     
@@ -34,15 +32,20 @@ switch ($page) {
                 if (empty($_POST['password']))
                     $error[1] = "Password field empty";
             } else {
-                    $usr->login($_POST['username'],$_POST['password']);
-                    if ($_POST['username'] != $_SESSION['username'])
-                        $error[2] = "Username and/or password is incorrect";
-                    else
-                        exit(header("Location: index.php?page=home"));
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+            }    
+            if ($usr->login( $username, $password )) {
+                if ($username != $_SESSION['username']) {
+                    $error[2] = "Username and/or is incorrect";
+                } else {
+                    $msg[0] = "Login Successful.";
+                }
             }
         }
         $LoginForm = new Template('templates/login.tpl.php');
         $LoginForm->set('error', $error);
+        $LoginForm->set('msg', $msg);
         echo $LoginForm->fetch('templates/login.tpl.php');        
     break;
     
@@ -52,10 +55,12 @@ switch ($page) {
     break;
     
     case 'register':
-    
+        $RegisterForm = new Template('templates/login.tpl.php');
+        $RegisterForm->set('error', $error);
+        echo $RegisterForm->fetch('templates/login.tpl.php');            
     break;
     default:
-       header("HTTP/1.0 404 Not Found");
+       exit(header("HTTP/1.0 404 Not Found"));
     break;
 }
 ?>

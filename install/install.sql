@@ -3,8 +3,7 @@ drop table if exists `categories`, `news`, `page`, `users`, `user_groups`;
 CREATE TABLE `categories` (
     `id` int not null AUTO_INCREMENT PRIMARY KEY ,
     `title` varchar(65) NOT NULL,
-    `left_node` INT NULL default null,
-    `left_node` INT not null default,
+    `parent_id` INT NULL default null
 ) DEFAULT CHARSET=utf8 COMMENT='Categories Table';
 
 CREATE TABLE `navigation` (
@@ -54,7 +53,6 @@ CREATE TABLE `user_groups` (
 ) DEFAULT CHARSET=utf8 COMMENT='User Groups Table';
 
 INSERT INTO `categories` VALUES(1,'Uncategorized',NULL);
-INSERT INTO `users` VALUES('admin', MD5('pass1234'),'Administrator', 'site@domain.tld', 1, 1 );
 INSERT INTO `user_groups` VALUES( 1,'Administrator','Site Administrator''s Group'),
                                 ( 2,'Developer', 'The power to create, but not destroy'),
                                 ( 3,'Editor', 'Basic access. Create and edits own articles' );

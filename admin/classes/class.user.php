@@ -19,12 +19,10 @@ class User {
         }
         */
     }
-    
-   
   // Add User to the SQL
-    public function add($username, $password, $real_name, $email, $activated=0) {
+    public function add($username, $password, $real_name, $email ) {
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $query = 'INSERT INTO users (username, password, realname, email, activated) VALUES (?,?,?,?,0)';
+        $query = 'INSERT INTO users (username, password, realname, email, activated, permission_level) VALUES (?,?,?,?);';
 
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('ssss', $username, md5($password), $real_name, $email );
@@ -34,8 +32,7 @@ class User {
     }
   // setActivation() ?
     public function activate($username) {
-        $query = 'UPDATE users SET activated = ? WHERE username = ? AND activated = ?';
-
+        $query = 'UPDATE users SET activated = ? WHERE username = ? AND activated = ?;';
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('isi', 1, $username, 0);
             $stmt->execute();
@@ -46,8 +43,14 @@ class User {
 
     // Remove User from the SQL
     // This function isn't finished
-    public function remove($user, $pass) { }
-
+    public function remove($username, $password) { 
+        $query = 'DELETE FROM users WHERE username = ? and password = ?;';
+        if ($stmt = $this->db->prepare($query)) {
+            $stmt->bind_param('si', $username, $password);
+            $stmt->execute();
+            $stmt->close();
+        }
+    }
     // This function isn't finished
     public function isLoggedIn() {
         return $_SESSION['logged_in'];

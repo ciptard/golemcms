@@ -12,15 +12,17 @@
     <div id="header">
         <h1>GolemCMS Installation</h1>
     </div>
+    
     <?php if(!empty($error)): ?>
-        <div class="error"><p>
+    <div class="error"><p>
         <?php foreach($error as $err):?>
             <strong>Error</strong>:<?php echo $err; ?>
         <?php endforeach; ?>
-        </p></div>
+    </p></div>
     <?php endif; ?>
-<div id="main">
-        <?php if ( ! defined('DEBUG')): ?>
+    
+    <div id="main">
+    <?php if (!defined('DEBUG')): ?>
         <form action="index.php" method="post">
         <fieldset><legend>Database Information</legend>
             <div class="formbox">
@@ -60,11 +62,9 @@
                 <span class="hintbox">Optional. Add a suffix to simulate static <abbr title="Hyper Text Mark-up Language">HTML</abbr> files.</span>
             </div>
         </fieldset>
-        <div class="buttonbox">
             <p class="buttons">
-                <input class="button" name="register" type="submit" value="Install GolemCMS">
+                <input class="button" name="commit" type="submit" value="Install GolemCMS">
             </p>
-        </div>
         </form>    
     <?php else: ?>
         <?php if(!empty($msg)): ?>
@@ -76,7 +76,7 @@
 
     </div>
     <div id="footer">
-        <p>This site was made with <a href="http://www.php.net" target="_blank">PHP</a> and is powered by <a href="http://darrin.roenfanz.info/golemcms">GolemCMS</a></p>
+        <p>This site was made with <a href="http://www.php.net" >PHP</a> and is powered by <a href="http://darrin.roenfanz.info/golemcms">GolemCMS</a></p>
     </div>
 
 </div>
