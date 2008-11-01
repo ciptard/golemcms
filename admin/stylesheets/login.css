@@ -1,0 +1,148 @@
+/**
+   Golem CMS - The Rock Solid CMS. <http://darrin.roenfanz.info/golemcms>
+   Copyright (C) 2008 Darrin Roenfanz <darrin@roenfanz.info>
+
+   This program is free software: you can redistribute it and/or modify
+   it under the terms of the GNU Affero General Public License as
+   published by the Free Software Foundation, either version 3 of the
+   License, or (at your option) any later version.
+
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU Affero General Public License for more details.
+
+   You should have received a copy of the GNU Affero General Public License
+   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+/* =GENERIC */
+
+html, body { padding: 0; margin: 0; }
+body {
+    background-color: #123;
+    font-size: 14px;
+    font-style: normal;
+    font-family: Verdana, Arial, sans-serif;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.2;
+    margin: .5em 0 .3em 0;
+}
+
+h1 { font-size: 2.0em; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.2em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1.0em; }
+form label {
+    cursor: pointer;
+    margin: 0;
+    padding: .3em 0;
+}        
+/* =container */
+
+div#container {
+    color: #123;
+    background-color: #F5F5F5;
+    border: 1px solid #123;
+    outline: 10px solid #246;
+    margin: 10em auto 1em auto;
+    width: 22em;
+    }
+div#header h1 {
+    background-color: #262626;
+    border: 1px solid #9cf;
+    border-width: 1px 1px 0 1px;
+    color: #FFF;
+    margin: 0;
+    padding: 0.25em;
+    text-align: center;
+    }
+#main div {
+    padding: 0.5em 1em;
+    margin: 1em;
+    }
+
+#main div p{
+    margin: 0 2em;
+    }
+#main form div {
+    padding: 1px 1px 1em 1px;
+    margin: 0;
+    }    
+#main form div p{
+    margin: 0;
+    }    
+
+div.error {
+    background-color: #FDD;
+    border: 1px solid #F00;
+    color: #FD0000;
+    }
+div.info {
+    background-color: #9cf;
+    border: 1px solid #00D;
+    color: #00D;
+    }
+div#main {
+    border: 1px solid #FFF;
+    }
+div#main a { color: #235; }
+/* =FORM */
+form {
+    padding: 1em;
+    padding-bottom: 0;
+    }
+div.formbox {
+    clear: both; 
+    overflow: hidden;
+    padding: 1px 1px 1em 1px;
+    padding-bottom: 1em;
+    margin-bottom: 0.5em;
+    }
+div.formbox h3 { margin: 0 0 0.5em 0; padding: 0; }
+div.formbox label { 
+    clear: left; 
+    float: left; 
+    margin-right: 0.5em; 
+    width: 10em; 
+    line-height: 1;
+    }
+input.textbox {
+    clear: left;
+    float: left;
+    margin-right: 0.5em; 
+    width: 16.25em;
+    font-size: 1.2em;
+    border: 2px solid #999;
+    }
+input.textbox:focus { border-color: #246; }
+input.button {
+    font-size: 1.1em;        
+    background-color: #BBB;
+    border: 1px solid #DDD;
+    border-right-color: #888;
+    border-bottom-color: #888;
+    outline: 1px solid #666;
+    padding: 0.25em 1em;
+    }
+p.buttons span { float: right; padding: 0.3em; margin-right: 1em;}
+input.button:active {
+    border: 1px solid #888;
+    border-right-color: #DDD;
+    border-bottom-color: #DDD;
+    }
+/* =FOOTER */
+div#footer {
+    background-color: #262626;
+    border: 1px solid #9cf;            
+    border-width: 0 1px 1px 1px;
+    color: #FFF;
+    padding: 0.5em 1em;
+    }
+div#footer a { color: #FFF; }
+#footer p { padding: 0; margin: 0; text-align: center;}
