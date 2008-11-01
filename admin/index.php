@@ -102,7 +102,7 @@ switch ($page) {
                 if (empty($_POST['username']))
                     $error[0] = "Username field empty";
                 if (empty($_POST['realname']))
-                    $error[1] = "Real Name field empty";
+                    $error[1] = "Name field empty";
             } else {                
                 $realname = $_POST['realname'];
                 $username = $_POST['username'];
@@ -116,12 +116,13 @@ switch ($page) {
                 $password = $_POST['password'];
             }
             if (empty($error)) {
+                $db = $__GOLEM_CONN__;
                 $query = 'INSERT INTO users(username,password,realname,email,activated,permission_level)'
-                        .'VALUES( ?, ?, ?, ?, 1, 1)';
-                if ($stmt = $__GOLEM_CONN__->prepare($query)) {
+                        .'VALUES( ?, ?, ?, ?, 0, 0)';
+                if ($stmt = $db->prepare($query)) {
                     $stmt->bind_param('ssss', $username,md5($password), $realname, $email);
                     $stmt->execute();
-                    printf("Error: %s.\n", $stmt->error);
+                    if ($stmt->errno != 0) { printf("Error: %s.\n", $stmt->error); }
                     $stmt->close();
                     $msg[0] = "Account created! Congratulations! You may now proceed to site administration.";
                 }

@@ -13,14 +13,15 @@
     </div>
     
 <div id="main">
-    <?php if(!empty($error)): ?>
+    <?php if(!empty($error) && isset($_POST['register'])): ?>
         <div class="error"><p>
         <?php foreach($error as $err):?>
             <strong>Error</strong>: <?php echo $err; ?><br>
         <?php endforeach; ?>
         </p></div>
     <?php endif; ?>
-
+    
+    <?php if(empty($msg)): ?>
     <p class="info">
         <strong>Attention</strong>: All fields are required.
     </p>

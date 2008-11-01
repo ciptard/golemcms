@@ -91,8 +91,7 @@ switch ($page)
                 $email = $_POST['email'];
                 $password = $_POST['password'];
             }
-            if (empty($error)) {
-            
+            if (empty($error)) {            
                 include $config_file;
                 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
