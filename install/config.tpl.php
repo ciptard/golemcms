@@ -27,5 +27,4 @@ define('URL_SUFFIX', '<?php echo $url_suffix; ?>');
 // go here for more information of the available timezone:
 // http://php.net/timezones
 define('DEFAULT_TIMEZONE', '<?php $timezone = date('e'); echo $timezone != 'e' ? $timezone: 'GMT'; ?>');
-
-<?php echo '?>'; ?> 
+<?php echo '?>';?>

@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 /**
    Golem CMS - The Rock Solid CMS. <http://darrin.roenfanz.info/golemcms>
    Copyright (C) 2008 Darrin Roenfanz <darrin@roenfanz.info>
@@ -20,15 +18,13 @@ session_start();
  */
 
 //  Constants  ---------------------------------------------------------------
-
-define('GOLEM_ROOT', dirname(__FILE__));
-define('GOLEM_CORE', GOLEM_ROOT.'/core');
+define('GOLEMCMS_ROOT', dirname(__FILE__));
+define('GOLEMCMS_CORE', GOLEMCMS_ROOT.'/core');
 
 #define('APP_PATH', CORE_ROOT.'/app');
 
 //  Init  --------------------------------------------------------------------
-
-require GOLEM_ROOT.'/config.php';
+require GOLEMCMS_ROOT.'/config.php';
 
 define('BASE_URL', URL_PUBLIC . (USE_MOD_REWRITE ? '': '?'));
 
@@ -37,7 +33,7 @@ if ( ! defined('DEBUG')) { header('Location: install/'); exit(); }
 
 // run everything!
 #require APP_PATH.'/admin/main.php';
-require_once(GOLEM_CORE.'/classes/GC_Template.php');
+require_once(GOLEMCMS_CORE.'/classes/GC_Template.php');
 $WebsiteBase = new Template('themes/darrin.v3/index.html');
 $WebsiteBase->set('site_title', "darrin.roenfanz.info");
 

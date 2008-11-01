@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
@@ -13,7 +13,7 @@ define('DEBUG', false);
 define('URL_PUBLIC', 'http://localhost/golemcms/');
 
 // The directory name of your GolemCMS administration (you will need to change it manually)
-define('ADMIN_DIR', 'admin');
+//define('ADMIN_DIR', URL_PUBLIC.'/admin');
 
 // Change this setting to enable mod_rewrite. Set to "true" to remove the "?" in the URL.
 // To enable mod_rewrite, you must also change the name of "_.htaccess" in your
@@ -27,5 +27,4 @@ define('URL_SUFFIX', '.html');
 // go here for more information of the available timezone:
 // http://php.net/timezones
 define('DEFAULT_TIMEZONE', 'America/Los_Angeles');
-
-?> 
+?>

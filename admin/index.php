@@ -18,19 +18,13 @@
 **/
 
 //  Constants  --------------------------------------------------------------
-session_start();
 define('GOLEMCMS_VERSION', '0.1');
 
 define('GOLEMCMS_ROOT', dirname(__FILE__).'/..');
 define('GOLEMCMS_CORE', GOLEMCMS_ROOT.'/core');
 
-#define('APP_PATH',  GOLEMCMS_CORE.'/app/backend');
-
 define('SESSION_LIFETIME', 3600);
 define('REMEMBER_LOGIN_LIFETIME', 1209600); // two weeks
-
-define('DEFAULT_CONTROLLER', 'page');
-define('DEFAULT_ACTION', 'index');
 
 define('COOKIE_PATH', '/');
 define('COOKIE_DOMAIN', '');
@@ -38,26 +32,28 @@ define('COOKIE_SECURE', false);
 
 //  Database connection  -----------------------------------------------------
 require_once(GOLEMCMS_ROOT.'/config.php');
-$__GOLEM_CONN__ = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-    if ($mysqli->connect_error) {
-        printf("Unable to connect to the database! Tables are not loaded!\n GolemCMS had a connection issue: %s\n", mysqli_connect_error());
-        file_put_contents($config_file, '');
-        exit();
-    }
 require_once(GOLEMCMS_CORE.'/classes/GC_Template.php');
 require_once(GOLEMCMS_CORE.'/classes/GC_User.php');
+
+if ( ! defined('DEBUG')) { header('Location: '.GOLEMCMS_ROOT.'/install/'); exit(); }
+
+$__GOLEM_CONN__ = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($__GOLEM_CONN__->connect_error) {
+    printf("Unable to connect to the database! Tables are not loaded!\n GolemCMS had a connection issue: %s\n", mysqli_connect_error());
+    exit();
+}
 
 $usr = new User($__GOLEM_CONN__);
 
 
 if (isset($_GET['page'])) {
-    $PAGE = $_GET['page'];
+    $page = $_GET['page'];
 } else {
-    $PAGE = 'home';
+    $page = 'home';
 }
 
-switch ($PAGE) {
+switch ($page) {
     case 'home':
         if($usr->isLoggedIn() === true ) {
             $BaseCMS = new Template('themes/index.tpl.php');
@@ -70,18 +66,29 @@ switch ($PAGE) {
     break;
     
     case 'login':        
-        if(isset($_POST['submit_login'])) {
-            if (!$_POST['username'] || !$_POST['password'])
-                echo "You Need to fill in both fields. \n";
-            else
-                $usr->login($_POST['username'],$_POST['password']);
-                if ($_POST['username'] != $_SESSION['username'])
-                    echo "Username and/or password is incorrect. \n";
-                else
-                    exit(header("Location: index.php?page=home"));
+        if(isset($_POST['login'])) {
+            if (empty($_POST['username']) || empty($_POST['password'])) {
+                if (empty($_POST['username']))
+                    $error[0] = "Username field empty";
+                if (empty($_POST['password']))
+                    $error[1] = "Password field empty";
+            } else {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+            }
+            if (empty($error)) {
+                $usr->login($username, $password);
+                if ($username != $_SESSION['username']) {
+                    $error[2] = "Username and/or password is incorrect.\n";
+                } else {
+                    if ($usr->isLoggedIn() === true ) {
+                        exit(header("Location: index.php?page=home"));
+                    }
+                }
+            }
         }
         $LoginForm = new Template('themes/login.tpl.php');
-        echo $LoginForm->fetch('themes/login.tpl.php'); 
+        echo $LoginForm->fetch('themes/login.tpl.php');        
     break;
     
     case 'logout':
@@ -89,12 +96,40 @@ switch ($PAGE) {
         exit(header("Location: index.php?page=login"));   
     break;
 
-    case 'logout':
-        $usr->logout();
-        exit();
-    break;
-
     case 'register':
+        if (isset($_POST['register']) ) {
+            if (empty($_POST['username']) || empty($_POST['realname'])) {
+                if (empty($_POST['username']))
+                    $error[0] = "Username field empty";
+                if (empty($_POST['realname']))
+                    $error[1] = "Real Name field empty";
+            } else {                
+                $realname = $_POST['realname'];
+                $username = $_POST['username'];
+            }
+            if ($_POST['email2'] != $_POST['email']) {
+                $error[2] = 'Email fields do not match. Try again.';                
+            } elseif ($_POST['password2'] != $_POST['password']) {
+                $error[3] = 'Password fields do not match. Try again.';
+            } else {
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+            }
+            if (empty($error)) {
+                $query = 'INSERT INTO users(username,password,realname,email,activated,permission_level)'
+                        .'VALUES( ?, ?, ?, ?, 1, 1)';
+                if ($stmt = $__GOLEM_CONN__->prepare($query)) {
+                    $stmt->bind_param('ssss', $username,md5($password), $realname, $email);
+                    $stmt->execute();
+                    printf("Error: %s.\n", $stmt->error);
+                    $stmt->close();
+                    $msg[0] = "Account created! Congratulations! You may now proceed to site administration.";
+                }
+                if(!empty($msg)) {
+                    exit(header("Location: index.php?page=login"));
+                }
+            }
+        }        
         $RegisterForm = new Template('themes/register.tpl.php');
         $RegisterForm->set('error', $error);
         echo $RegisterForm->fetch('themes/register.tpl.php');

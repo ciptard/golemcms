@@ -17,7 +17,7 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 **/
 
-define('CORE_ROOT', dirname(__FILE__).'/../core');
+define('GOLEMCMS_CORE', dirname(__FILE__).'/../core');
 
 $config_file = '../config.php';
 
