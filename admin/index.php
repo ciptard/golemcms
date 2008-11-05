@@ -73,7 +73,30 @@ switch ($page) {
     break;
 
     case 'login':
-        include_once 'login.php';
+        if(isset($_POST['login'])) {
+            if (empty($_POST['username'])) {
+                    $error[0] = "Username field empty";
+            }
+            if (empty($_POST['password'])) {
+                    $error[1] = "Password field empty";
+            }
+            if (empty($error)) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+
+                $usr->login($username, $password);
+                if ($username != $_SESSION['username']) {
+                    $error[2] = "Username and/or password is incorrect";
+                } else {
+                    if ($usr->isLoggedIn() === true ) {
+                        exit(header("Location: index.php?page=admin"));
+                    }
+                }
+            }
+        }
+        $LoginForm = new Template('themes/login.tpl.php');
+        $LoginForm->set('error', $error);
+        echo $LoginForm->fetch('themes/login.tpl.php'); 
     break;
 
     case 'logout':
