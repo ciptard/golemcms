@@ -74,11 +74,11 @@ switch ($page)
     
     case '2':
         if (isset($_POST['register']) ) {
-            if (empty($_POST['username']) || empty($_POST['password'])) {
+            if (empty($_POST['username']) || empty($_POST['realname'])) {
                 if (empty($_POST['username']))
                     $error[0] = "Username field empty";
-                if (empty($_POST['password']))
-                    $error[1] = "Password field empty";
+                if (empty($_POST['realname']))
+                    $error[1] = "Name field empty";
             } else {                
                 $realname = $_POST['realname'];
                 $username = $_POST['username'];

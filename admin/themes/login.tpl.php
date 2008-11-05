@@ -14,11 +14,11 @@
     
 <div id="main">
     <?php if (!empty($error) && isset($_POST['login'])):?>
-    <p class="error">
+    <div class="error"></p>
         <?php foreach($error as $err):?>
-          <strong>Error</strong>: <?php echo $err ;?>.<br>
+          <strong>Error</strong>: <?php echo $err ;?><br>
         <?php endforeach; ?>  
-    </p>
+    </p></div>
     <?php endif;?>
         
     <form action="index.php?page=login" method="post">
@@ -40,7 +40,7 @@
         <p class="links">
             <a href=''>Request password</a> | <a href='index.php?page=register'>Create an account</a>
         </p>      
-    </form>
+    </form>  
 </div>
 
     <div id="footer">

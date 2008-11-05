@@ -9,12 +9,16 @@
   	<meta name="Description" content="Darrin's Personal Blog">
   	<meta name="Keywords" content="darrin,roenfanz">
     <link rel="stylesheet" href="stylesheets/admin.css" type="text/css">
+    <link rel="stylesheet" href="stylesheets/form.css" type="text/css">
+    
+<script type="text/javascript" src="../core/scripts/nicEdit/nicEdit.js"></script>
+
 </head>
 <body>
 
 <div id="AdminHeader">
     <h1 class="content">GolemCMS</h1>
-    <p>You are currently logged in as <span class="LoginName"><?= $LoginName; ?></span> | <a href="index.php?page=logout">Logout</a> | <a href="#">View Site</a></p>
+    <p>You are currently logged in as <span class="LoginName"><?php echo $LoginName; ?></span> | <a href="index.php?page=logout">Logout</a> | <a href="../index.php">View Site</a></p>
 </div>
 <div id="AdminWrapper" class="content">
     <div id="AdminCrumbs">
@@ -65,13 +69,13 @@
     </div>
 
     <div id="AdminContent" class="AdminPanel">
-        <h4><?=$AdminHeader; ?> <span><a id="help" href="#" class="normal">Help</a> (new window)</span></h4>
-        <?= $AdminContent; ?>
+        <h4><?php echo$AdminHeader; ?> <span><a id="help" href="#" class="normal">Help</a> (new window)</span></h4>
+        <?php echo$AdminContent; ?>
     </div>   
 </div>
 <div id="AdminFooter">
-    <p>TestTemplate CMS 0.0.1 "Slate"</p>
-    <p>TestTemplate CMS is just a dummy CMS for demonstration purposes</p>
+    <p>GolemCMS v<?php echo GOLEMCMS_VERSION ;?> &ndash; The Rock Solid CMS!</p>
+    <p>Default disclaimer text goes here.</p>
 </div>
 </body>
 </html>

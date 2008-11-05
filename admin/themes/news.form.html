@@ -3,10 +3,9 @@
 	<legend><?=$legend;?></legend>
 
 <label for="title" class="pagetext"><span><?=$title_text;?></span>
-	<input type="text" class="text" name="title" id="title"/>
+	<input type="text" class="text" name="title" id="title">
 </label>
 
-<?php if ($id == 'news'): ?>
   <label for="list" class="pagetext"><span><?=$list_text;?></span>
   	<select name="list" id="list">
   <?php foreach($category as $cat): ?>
@@ -14,24 +13,21 @@
   <?php endforeach; ?>
   	</select>
   </label>
-
-<label for="txtAuthor" class="pagetext"><span><?=$author_text;?></span>
-    <input type="text" class="text" name="txtAuthor" id="txtAuthor"/>
-  </label>
-<?php endif ?>
+  
+    <input type="hidden" class="text" name="txtAuthor" id="txtAuthor" value="<?=$author_text;?>" >
 
 <label for="content_area"><span><?=$content_area_text;?></span>
 	<textarea name="content_area" id="content_area" cols="60" rows="15"></textarea>
 </label>
 
 <label for="chkPublish">
-	<input type="checkbox" class="checkbox" name="chkPublish" id="chkPublish" value='' /> Publish?
+	<input type="checkbox" class="checkbox" name="chkPublish" id="chkPublish" value='' > Publish?
 </label>
 
 <p class="buttons">
-    <button type="submit" class="positive"><img src="../images/tick.png" alt=""/>Submit</button>
-    <a href="#" class="negative"><img src="../images/cross.png" alt=""/>Cancel</a>
-    <a href="#" class="standard"><img src="../images/disk.png" alt=""/>Apply</a>
+    <button type="submit" class="positive"><img src="images/tick.png" alt="">Submit</button>
+    <a href="#" class="negative"><img src="images/cross.png" alt="">Cancel</a>
+    <a href="#" class="standard"><img src="images/disk.png" alt="">Apply</a>
 </p>
 
 </fieldset>

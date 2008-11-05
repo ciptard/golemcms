@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="install.css" type="text/css">
 </head>
 
-
 <body id="installation">
 
 <div id="container">
@@ -39,7 +38,7 @@
             </div>
 
             <div class="formbox">
-                <label for="email">Confirm Email:</label>
+                <label for="email2">Confirm Email:</label>
                 <input class="textbox" id="email2" maxlength="255" name="email2" size="255" type="text" value="">
                 <span class='hintbox'>Must match above</span>
             </div>
@@ -53,13 +52,13 @@
             </div>
             
             <div class="formbox">
-                <label for="password">Password:</label>
+                <label for="password2">Password:</label>
                 <input class="textbox" id="password" maxlength="255" name="password" size="255" type="password" value="">
                 <span class='hintbox'>At least 4 characters</span>
             </div>
             
             <div class="formbox">
-                <label for="password">Confirm Password:</label>
+                <label for="password2">Confirm Password:</label>
                 <input class="textbox" id="password2" maxlength="255" name="password2" size="255" type="password" value="">
                 <span class='hintbox'>Must match above</span>
             </div>

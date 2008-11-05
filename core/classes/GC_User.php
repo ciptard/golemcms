@@ -1,28 +1,63 @@
 <?php
-class User {
+/**
+ * Golem CMS - The Rock Solid CMS. <http://darrin.roenfanz.info/golemcms>
+ * Copyright (C) 2008 Darrin Roenfanz <darrin@roenfanz.info>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
+ */
+ 
+class GC_User 
+{
     private $db;
-    private $username = '' ;
-    private $real_name = '' ;
-    private $email = '';
-    private $permission_level = 0 ;
-    private $activated = 0;
-    private $logged_in = false;
+    private $username;
+    private $real_name;
+    private $email;
+    private $permission_level;
+    private $active;
+    private $logged_in;
 
-  // This function isn't finished
     public function __construct($db) {
         @session_start();
         $this->db = $db;
 
-        /*
-        if ($_SESSION['logged_in'] === true) {
-          // Do something to make sure the session is valid
+        if ($this->isLoggedIn() === true) {
+            $username = $_SESSION['username'];
+            $query = 'SELECT username, realname, email, active, permission_level FROM users WHERE username = ?';
+
+            if ($stmt = $this->db->prepare($query)) {
+                $stmt->bind_param('s', $username);
+                $stmt->execute();               /* execute statement */
+                $stmt->bind_result( $user, $real_name, $email, $active, $permission_level );
+
+                if($stmt->fetch()) {
+                    $this->logged_in = true;
+                    $this->username = $user;
+                    $this->real_name = $real_name;
+                    $this->email = $email;
+                    $this->active = $active;
+                    $this->permission_level = $permission_level;
+                    $this->setSession();
+                }
+            $stmt->close();
+            }
         }
-        */
     }
-  // Add User to the SQL
-    public function add($username, $password, $real_name, $email ) {
+    
+    // Add User to the SQL
+    public function add($username, $password, $real_name, $email) {
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
-        $query = 'INSERT INTO users (username, password, realname, email, activated, permission_level) VALUES (?,?,?,?);';
+        $query = 'INSERT INTO users (username, password, realname, email, active, permission_level) VALUES (?,?,?,?);';
 
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('ssss', $username, md5($password), $real_name, $email );
@@ -32,9 +67,9 @@ class User {
     }
   // setActivation() ?
     public function activate($username) {
-        $query = 'UPDATE users SET activated = ? WHERE username = ? AND activated = ?;';
+        $query = 'UPDATE users SET active = 1 WHERE username = ?;';
         if ($stmt = $this->db->prepare($query)) {
-            $stmt->bind_param('isi', 1, $username, 0);
+            $stmt->bind_param('s', $username);
             $stmt->execute();
             $stmt->close();
         }
@@ -43,7 +78,7 @@ class User {
 
     // Remove User from the SQL
     // This function isn't finished
-    public function remove($username, $password) { 
+    public function delete($username, $password) { 
         $query = 'DELETE FROM users WHERE username = ? and password = ?;';
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('si', $username, $password);
@@ -55,17 +90,20 @@ class User {
     public function isLoggedIn() {
         return $_SESSION['logged_in'];
     }
-
+    
+    public function isRemembered() {
+    }
+    
     //attempt to login false if invalid true if correct
     public function login($username, $password) {
-    $this->logged_in = true;
+    $this->logged_in = false;
 
-        $query = 'SELECT username, realname, email, activated, permission_level FROM users WHERE username = ? AND password = ?';
+        $query = 'SELECT username, realname, email, active, permission_level FROM users WHERE username = ? AND password = ?';
 
         if ($stmt = $this->db->prepare($query)) {
             $stmt->bind_param('ss', $username, md5($password));
             $stmt->execute();               /* execute statement */
-            $stmt->bind_result( $user, $real_name, $email, $activated, $permission_level );
+            $stmt->bind_result( $user, $real_name, $email, $active, $permission_level );
 
             if($stmt->fetch())
             {
@@ -73,7 +111,7 @@ class User {
                 $this->username = $user;
                 $this->real_name = $real_name;
                 $this->email = $email;
-                $this->activated = $activated;
+                $this->active = $active;
                 $this->permission_level = $permission_level;
                 $this->setSession();
             }
@@ -141,7 +179,10 @@ class User {
             $stmt->close();
         }
     }
-
+  // Fetch Username
+    public function getUsername() {
+        return $this->username;
+    }
   // Fetch User's Email
     public function getEmail() {
         return $this->email;
@@ -149,8 +190,7 @@ class User {
 
   // Fetch User's Real/Displayed Name
     public function getRealName() {   
-        $_SESSION['real_name'] = $this->real_name;
-        return $_SESSION['real_name'];
+       return $this->real_name;
     }
 
   // Fetch User's Admin Level
@@ -185,6 +225,7 @@ class User {
     private function setSession()  {
         $_SESSION['username'] = $this->username;
         $_SESSION['logged_in'] = $this->logged_in;
+        $_SESSION['uid'] = session_id();
     }
     private function getSession() { }
 
